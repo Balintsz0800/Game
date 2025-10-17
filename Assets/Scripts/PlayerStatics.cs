@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour
+public class PlayerStatics : MonoBehaviour
 { 
-    public static PlayerState Instance { get; set;}
+    public static PlayerStatics Instance { get; set;}
     
     public float currentHealth;
     public float maxHealth;
+    
+    public float currentStamina;
+    public float maxStamina;
 
     private void Awake()
     {
@@ -22,18 +25,11 @@ public class PlayerState : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
     }
     
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (currentHealth > 0)
-            {
-                currentHealth -=10;
-            }
-        }
-    }
+    {}
 }

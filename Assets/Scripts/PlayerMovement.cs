@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f * 2;
     public float jumpHeight = 3f;
+    public float sprintSpeed = 16f;
     
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -59,5 +60,18 @@ public class PlayerMovement : MonoBehaviour
         }
         
         lastPosition = gameObject.transform.position;
+
+
+
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && PlayerStatics.Instance.currentStamina > 0.1f)
+        {
+            controller.Move(move * sprintSpeed * Time.deltaTime);
+        }
+        else
+        {
+            controller.Move(move * speed * Time.deltaTime);
+        }
+
     }
+    
 }

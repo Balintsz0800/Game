@@ -19,8 +19,8 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentHealth = playerState.GetComponent<PlayerState>().currentHealth;
-        maxHealth = playerState.GetComponent<PlayerState>().maxHealth;
+        currentHealth = playerState.GetComponent<PlayerStatics>().currentHealth;
+        maxHealth = playerState.GetComponent<PlayerStatics>().maxHealth;
         
         float fillValue = currentHealth / maxHealth;
         slider.value = fillValue;
