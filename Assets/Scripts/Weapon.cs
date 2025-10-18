@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
     
     public Camera PlayerCam;
+    public Text bullet;
 
     public bool isShooting, readyToShoot;
     bool allowReset = true;
@@ -18,13 +20,25 @@ public class Weapon : MonoBehaviour
     public float spreadIntensity;
     
     public GameObject bulletPrefab;
-    public Transform bulletSpawn;
+    public Transform bulletSpawn ;
     public float bulletVelocity = 30;
     public float bulletPrefabLifetime = 3f;
+    public float currentBullet;
+    public float maxBullet;
+    public float reloadDelayPerBullet = 0.1f;
+    
+    public bool isReloading;
 
+    void Start()
+    {
+        currentBullet = maxBullet;
+        UpdateUI();
+    }
+    
     // Update is called once per frame
     void Update()
     {
+        PlayerStatics statics = PlayerStatics.Instance;
         
         if (currentShootingMode == ShootingMode.Auto)
         { 
@@ -35,11 +49,22 @@ public class Weapon : MonoBehaviour
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && isShooting)
+        if (readyToShoot && isShooting && currentBullet> 0)
         {
             burstBulletsLeft = bulletsPerBurst;
+            currentBullet -= 1;
             FireWeapon();
+            UpdateUI();
         }
+        
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        {
+            if (currentBullet < maxBullet)
+            {
+                StartCoroutine(Reload());
+                UpdateUI();
+            }
+        } 
     }
     
 
@@ -68,7 +93,24 @@ public class Weapon : MonoBehaviour
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
+        
     }
+    
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        readyToShoot = false;
+
+        while (currentBullet < maxBullet)
+        {
+            currentBullet += 1;
+            UpdateUI();
+            yield return new WaitForSeconds(reloadDelayPerBullet);
+        } 
+        isReloading = false;
+        readyToShoot = true;
+    }
+
 
     private void ReserShot()
     {
@@ -81,8 +123,8 @@ public class Weapon : MonoBehaviour
         
         Ray ray = PlayerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-
         Vector3 targetPoint;
+        
         if (Physics.Raycast(ray, out hit))
         {
             targetPoint = hit.point;
@@ -92,12 +134,14 @@ public class Weapon : MonoBehaviour
             targetPoint = ray.GetPoint(100);
         }
         
-        Vector3 direction = targetPoint - bulletSpawn.position;
+        Vector3 direction = (targetPoint - bulletSpawn.position).normalized;
         
         float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        Vector3 spread = PlayerCam.transform.right * x + PlayerCam.transform.up * y;
         
-        return direction + new  Vector3(x, y, 0);
+        Vector3 finalDir = (direction + spread).normalized;
+        return finalDir;
         
     }
 
@@ -122,8 +166,9 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
     }
+
+    void UpdateUI()
+    {
+        bullet.text = Mathf.FloorToInt(currentBullet) + "/" + maxBullet;
+    }
 }
-
-    
-
-    

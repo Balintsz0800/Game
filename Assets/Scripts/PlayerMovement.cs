@@ -17,10 +17,23 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     
     bool isGrounded;
-    bool isMoving;
+    public bool isMoving;
     
     private Vector3 lastPosition = new Vector3(0f,0f,0f);
     
+    public static PlayerMovement Instance { get; set;}
+    
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     void Start()
     {
         controller = GetComponent<CharacterController>();

@@ -25,13 +25,14 @@ public class Stamina : MonoBehaviour
     void Update()
     {
         PlayerStatics statics = PlayerStatics.Instance;
+        PlayerMovement movement = PlayerMovement.Instance;
         
         float fillValue = statics.currentStamina / statics.maxStamina;
         slider.value = fillValue;
         
         stamina.text = statics.currentStamina + "/" + statics.maxStamina;
         
-        if (Input.GetKey(KeyCode.LeftShift) && statics.currentStamina > 0f)
+        if (Input.GetKey(KeyCode.LeftShift) && movement.isMoving && statics.currentStamina > 0f)
         {
             statics.currentStamina -= drainStamina * Time.deltaTime;
             statics.currentStamina = Mathf.Max(statics.currentStamina, 0f);
