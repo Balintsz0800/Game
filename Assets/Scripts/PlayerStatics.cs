@@ -28,4 +28,12 @@ public class PlayerStatics : MonoBehaviour
         currentHealth = maxHealth;
         currentStamina = maxStamina;
     }
+
+    void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            DeathScreen.Instance.ShowDeathScreen();
+        }
+    }
 }

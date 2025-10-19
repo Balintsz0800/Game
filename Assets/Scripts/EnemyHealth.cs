@@ -9,7 +9,4 @@ public class EnemyHealth : MonoBehaviour
     {
         healthText.text = health.ToString();
     }
-    
-    
-    
 }

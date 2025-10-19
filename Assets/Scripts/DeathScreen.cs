@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class DeathPanel : MonoBehaviour
+public class DeathScreen : MonoBehaviour
 {
     public GameObject deathScreen;
+    private bool isDead = false;
+    public static DeathScreen Instance;
     
     public void ShowDeathScreen()
     {
@@ -12,11 +14,16 @@ public class DeathPanel : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    void Update()
+    void Awake()
     {
-        if (PlayerStatics.Instance.currentHealth <= 0)
+        if (Instance != null && Instance != this)
         {
-            deathScreen.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
         }
     }
+    
 }

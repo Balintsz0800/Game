@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnEnemies : MonoBehaviour
 {
     public GameObject[] spawnPositions;
-    private float spawnTime = 5;
+    private float spawnTime = 15;
     private float spawnStartTime;
     public GameObject enemyPrefab;
 
