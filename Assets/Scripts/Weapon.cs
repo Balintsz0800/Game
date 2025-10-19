@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 public class Weapon : MonoBehaviour
 {
@@ -71,16 +72,16 @@ public class Weapon : MonoBehaviour
     void FireWeapon()
     {
         readyToShoot = false;
-        
+    
         Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
-        
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-        
-        bullet.transform.forward = shootingDirection;
-        
-        bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
-        
-        StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
+    
+        GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
+    
+        Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
+        if(rb != null)
+            rb.linearVelocity = shootingDirection * bulletVelocity;
+    
+        StartCoroutine(DestroyBulletAfterTime(bulletInstance, bulletPrefabLifetime));
 
         if (allowReset)
         {
@@ -93,8 +94,8 @@ public class Weapon : MonoBehaviour
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
-        
     }
+
     
     private IEnumerator Reload()
     {
@@ -165,7 +166,9 @@ public class Weapon : MonoBehaviour
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
+        
     }
+    
 
     void UpdateUI()
     {

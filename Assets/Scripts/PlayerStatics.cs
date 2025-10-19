@@ -10,6 +10,7 @@ public class PlayerStatics : MonoBehaviour
     public float currentStamina;
     public float maxStamina;
     
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)

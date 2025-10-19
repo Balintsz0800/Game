@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class Stamina : MonoBehaviour
 {
     
     private Slider slider;
-    public Text stamina;
+    public TMP_Text stamina;
     
     public GameObject playerState;
     public float drainStamina = 5f;
@@ -30,7 +31,7 @@ public class Stamina : MonoBehaviour
         float fillValue = statics.currentStamina / statics.maxStamina;
         slider.value = fillValue;
         
-        stamina.text = statics.currentStamina + "/" + statics.maxStamina;
+        stamina.text = "Stamina: " + statics.currentStamina + "/" + statics.maxStamina;
         
         if (Input.GetKey(KeyCode.LeftShift) && movement.isMoving && statics.currentStamina > 0f)
         {
@@ -50,6 +51,6 @@ public class Stamina : MonoBehaviour
     void UpdateUI()
     {
         PlayerStatics statics = PlayerStatics.Instance;
-        stamina.text = Mathf.FloorToInt(statics.currentStamina) + "/" + statics.maxStamina;
+        stamina.text ="Stamina: " + Mathf.FloorToInt(statics.currentStamina) + "/" + statics.maxStamina;
     }
 }

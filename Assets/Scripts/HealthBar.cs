@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public class HealthBar : MonoBehaviour
 {
     
     private Slider slider;
-    public Text health;
+    public TMP_Text health;
     
     public GameObject playerState;
     private float currentHealth, maxHealth;
@@ -25,6 +26,6 @@ public class HealthBar : MonoBehaviour
         float fillValue = currentHealth / maxHealth;
         slider.value = fillValue;
         
-        health.text = currentHealth + "/" + maxHealth;
+        health.text = "Health: " + currentHealth + "/" + maxHealth;
     }
 }
