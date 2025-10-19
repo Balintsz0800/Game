@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     
     Vector3 velocity;
     
-    bool isGrounded;
+    public bool isGrounded;
     public bool isMoving;
     
     private Vector3 lastPosition = new Vector3(0f,0f,0f);
@@ -54,9 +54,10 @@ public class PlayerMovement : MonoBehaviour
         
         controller.Move(move * speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && PlayerStatics.Instance.currentStamina > 0.1f)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            
         }
         
         velocity.y += gravity * Time.deltaTime;

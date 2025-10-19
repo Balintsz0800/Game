@@ -45,7 +45,13 @@ public class Stamina : MonoBehaviour
             statics.currentStamina = Mathf.Min(statics.currentStamina, statics.maxStamina);
             UpdateUI();
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Space)&& movement.isGrounded && statics.currentStamina > 0f)
+        {
+            statics.currentStamina -= drainStamina;
+            statics.currentStamina = Mathf.Max(statics.currentStamina, 0f);
+            UpdateUI();
+        }
     }
 
     void UpdateUI()

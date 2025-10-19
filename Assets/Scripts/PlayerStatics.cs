@@ -28,9 +28,4 @@ public class PlayerStatics : MonoBehaviour
         currentHealth = maxHealth;
         currentStamina = maxStamina;
     }
-    
-
-    // Update is called once per frame
-    void Update()
-    {}
 }

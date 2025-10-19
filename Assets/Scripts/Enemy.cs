@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        enemyHealth.UpdateHealthText(currentHealth);
 
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = attackRange;

@@ -27,11 +27,16 @@ public class Weapon : MonoBehaviour
     public float currentBullet;
     public float maxBullet;
     public float reloadDelayPerBullet = 0.1f;
+    public float damage;
+    public float maxReload = 2;
+    public float currentReload;
+    
     
     public bool isReloading;
 
     void Start()
     {
+        currentReload = maxReload;
         currentBullet = maxBullet;
         UpdateUI();
     }
@@ -71,45 +76,63 @@ public class Weapon : MonoBehaviour
 
     void FireWeapon()
     {
-        readyToShoot = false;
-    
-        Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
-    
-        GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
-    
-        Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-        if(rb != null)
-            rb.linearVelocity = shootingDirection * bulletVelocity;
-    
-        StartCoroutine(DestroyBulletAfterTime(bulletInstance, bulletPrefabLifetime));
+        
+            readyToShoot = false;
 
-        if (allowReset)
-        {
-            Invoke("ReserShot", shootingDelay);
-            allowReset = false;
-        }
+            Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
 
-        if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
-        {
-            burstBulletsLeft--;
-            Invoke("FireWeapon", shootingDelay);
-        }
+            GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position,
+                Quaternion.LookRotation(shootingDirection));
+
+            bulletInstance.GetComponent<Bullet>().damage = damage;
+
+            Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.linearVelocity = shootingDirection * bulletVelocity;
+
+            StartCoroutine(DestroyBulletAfterTime(bulletInstance, bulletPrefabLifetime));
+
+            if (allowReset)
+            {
+                Invoke("ReserShot", shootingDelay);
+                allowReset = false;
+            }
+
+            if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
+            {
+                burstBulletsLeft--;
+                Invoke("FireWeapon", shootingDelay);
+            }
+
     }
 
     
     private IEnumerator Reload()
     {
-        isReloading = true;
-        readyToShoot = false;
-
-        while (currentBullet < maxBullet)
+        if (currentReload > 0)
         {
-            currentBullet += 1;
-            UpdateUI();
-            yield return new WaitForSeconds(reloadDelayPerBullet);
-        } 
-        isReloading = false;
-        readyToShoot = true;
+
+            currentReload -= 1;
+            isReloading = true;
+            readyToShoot = false;
+
+            while (currentBullet < maxBullet)
+            {
+                currentBullet += 1;
+                UpdateUI();
+                yield return new WaitForSeconds(reloadDelayPerBullet);
+            }
+
+            isReloading = false;
+            readyToShoot = true;
+        }
+        else
+        {
+            if (currentBullet == 0)
+            {
+                readyToShoot = false;
+            }
+        }
     }
 
 
