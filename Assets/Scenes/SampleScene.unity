@@ -1206,7 +1206,6 @@ GameObject:
   - component: {fileID: 362415748}
   - component: {fileID: 362415747}
   - component: {fileID: 362415746}
-  - component: {fileID: 362415749}
   m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
@@ -1289,38 +1288,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &362415749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362415745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 57e0674e032ecd94ea727daa8e71019d, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2410,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 1500
       objectReference: {fileID: 0}
+    - target: {fileID: 406654488547587608, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 406654488547587611, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_Size.y
       value: 3.1
@@ -2457,15 +2428,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1076196169278958764, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.113995
+      value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 1076196169278958764, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78
+      value: 15.2
       objectReference: {fileID: 0}
     - target: {fileID: 1076196169278958764, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 71.65162
+      value: -211.16
       objectReference: {fileID: 0}
     - target: {fileID: 1076196169278958764, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2549,19 +2520,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5514210230620496040, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 6000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210230620496040, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 40000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210230758666401, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 6000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210230758666401, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 40000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210230758666463, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_Layer
@@ -2573,11 +2544,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231182756941, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 6000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231182756941, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 40000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231286698642, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_Name
@@ -2589,11 +2560,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231286698644, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 6000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231286698644, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 40000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5514210231427130257, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       propertyPath: m_Layer
@@ -2637,9 +2608,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 406654488547587606, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1458871966}
-    - targetCorrespondingSourceObject: {fileID: 406654488547587606, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1458871971}
   m_SourcePrefab: {fileID: 100100000, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
 --- !u!1 &758917655
 GameObject:
@@ -4191,103 +4159,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1076196169278958764, guid: e2c4287a936a99c4d9988378e62d0060, type: 3}
   m_PrefabInstance: {fileID: 673940671}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1458871971
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458871961}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1496453518
 GameObject:
   m_ObjectHideFlags: 0
