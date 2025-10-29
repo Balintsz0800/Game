@@ -25,5 +25,4 @@ public class DeathScreen : MonoBehaviour
             Instance = this;
         }
     }
-    
 }

@@ -84,7 +84,7 @@ public class Weapon : MonoBehaviour
             Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
 
             GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position,
-                Quaternion.LookRotation(shootingDirection));
+                Quaternion.LookRotation(shootingDirection) * Quaternion.Euler(0, 90, 90));
 
             bulletInstance.GetComponent<Bullet>().damage = damage;
 
