@@ -15,6 +15,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("Ui")]
     public Image image;
 
+    public bool isOpen = false;
+
     [HideInInspector] public Transform parentAfterDrag;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -37,12 +39,20 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (!isOpen && Input.GetKeyDown(KeyCode.I))
         {
+            isOpen = true;
             Inventory.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             mousemovement.enabled = false;
+        }
+        else if (isOpen && Input.GetKeyDown(KeyCode.I))
+        {
+            isOpen = false;
+            Inventory.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

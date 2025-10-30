@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3487017884076344009}
   - component: {fileID: 4912415527068322582}
   - component: {fileID: 283761327694519697}
-  - component: {fileID: 3858972985522811680}
   m_Layer: 5
   m_Name: Inventory Item
   m_TagString: Untagged
@@ -76,19 +75,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3858972985522811680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366550271650443711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df3be1540627db9448600c892b6a66d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  Inventory: {fileID: 0}
-  mousemovement: {fileID: 0}
-  image: {fileID: 0}
-  parentAfterDrag: {fileID: 0}
