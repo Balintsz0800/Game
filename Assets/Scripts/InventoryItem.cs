@@ -41,6 +41,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             Inventory.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             mousemovement.enabled = false;
         }
     }
