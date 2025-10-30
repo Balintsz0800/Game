@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
-    public CarController playermove;
+    public PlayerMovement playermove;
     public Camera PlayerCamera;
     public Camera CarCam;
     public GameObject player;
@@ -19,7 +19,6 @@ public class DoorScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playermove.enabled = false;
         closeRotation = transform.rotation;
         openRotation = Quaternion.Euler(0, openAngle, 0) * closeRotation;
     }
@@ -31,6 +30,9 @@ public class DoorScript : MonoBehaviour
         {
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
             currentCoroutine = StartCoroutine(ToggleDoor());
+            playermove.enabled = false;
+            player.SetActive(false);
+            CarCam.enabled = true;
         }
     }
 
@@ -47,8 +49,4 @@ public class DoorScript : MonoBehaviour
         
         transform.rotation = targetRotation;
     }
-}
-
-internal class MonoBehaviourScript
-{
 }

@@ -19,7 +19,7 @@ public class StartScreen : MonoBehaviour
     {
         startScreen.SetActive(false);
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
         Instantiate(Player, new Vector3(0, 3, 0), Quaternion.identity);
         Player.SetActive(true);
