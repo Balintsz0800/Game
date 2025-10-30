@@ -11,7 +11,6 @@ public class HealthBar : MonoBehaviour
     public GameObject playerState;
     private float currentHealth, maxHealth;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         slider = gameObject.GetComponent<Slider>();

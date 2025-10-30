@@ -5,6 +5,7 @@ public class StartScreen : MonoBehaviour
     public GameObject startScreen;
     public GameObject Player;
     public GameObject Camera;
+    public GameObject SecCamera;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class StartScreen : MonoBehaviour
         Instantiate(Player, new Vector3(0, 3, 0), Quaternion.identity);
         Player.SetActive(true);
         Camera.SetActive(false);
+        SecCamera.SetActive(false);
     }
 
     public void QuitGame()
