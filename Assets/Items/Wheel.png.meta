@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17976038223835f4584c41bcec6642f7
+guid: ac3cd8ddaf2ac3e47a52871e6aa41ae1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -113,7 +113,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4d3ee7c404b856c44b5aa32f8a6ceec9
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -122,8 +122,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "K\xE9perny\u0151k\xE9p 2025-10-30 225624_0": -1486317627
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
