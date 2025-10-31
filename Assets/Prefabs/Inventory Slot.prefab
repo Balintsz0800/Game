@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 928311956407437270}
   - component: {fileID: -7803033764951066808}
   m_Layer: 5
-  m_Name: Inventory Slot 1
+  m_Name: Inventory Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,4 +112,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3292e7b89d38ef94ea0246a59f158e17, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlots
+  m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  image: {fileID: 3546943651876173022}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  notSelectedColor: {r: 0.5566038, g: 0.54872733, b: 0.54872733, a: 1}
