@@ -8,8 +8,11 @@ public class InventoryManager : MonoBehaviour
     public int maxStackedItems = 4;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public GameObject Inventory;
+    public MouseMovement mousemovement;
 
     private int selectedSlot = -1;
+    public bool isOpen = false;
 
     private void Start()
     {
@@ -26,6 +29,24 @@ public class InventoryManager : MonoBehaviour
                 ChangeSelectedSlot(number -1);
             }
         }
+        
+        if (!isOpen && Input.GetKeyDown(KeyCode.I))
+        {
+            isOpen = true;
+            Inventory.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            mousemovement.enabled = false;
+        }
+        else if (isOpen && Input.GetKeyDown(KeyCode.I))
+        {
+            isOpen = false;
+            Inventory.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            mousemovement.enabled = true;
+        }
+    
     }
 
     void ChangeSelectedSlot(int newValue)
@@ -73,5 +94,32 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitaliseItem(item);
+    }
+
+    public Item GetSelectedItem(bool use)
+    {
+        InventorySlot slot = inventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+        if (itemInSlot != null)
+        {
+            Item item = itemInSlot.item;
+            if (use == true)
+            {
+                itemInSlot.count --;
+                if (itemInSlot.count <= 0)
+                {
+                    Destroy(itemInSlot.gameObject);
+                }
+                else
+                {
+                    itemInSlot.RefreshCount();
+                }
+            }
+
+            return item;
+        }
+
+        return null;
     }
 }

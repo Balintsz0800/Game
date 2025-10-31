@@ -15,8 +15,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("Ui")]
     public Image image;
     public Text countText;
-
-    public bool isOpen = false;
+    
 
     [HideInInspector] public Item item;
     [HideInInspector] public int count = 1;
@@ -52,25 +51,5 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
-    }
-
-    public void Update()
-    {
-        if (!isOpen && Input.GetKeyDown(KeyCode.I))
-        {
-            isOpen = true;
-            Inventory.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            mousemovement.enabled = false;
-        }
-        else if (isOpen && Input.GetKeyDown(KeyCode.I))
-        {
-            isOpen = false;
-            Inventory.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            mousemovement.enabled = true;
-        }
     }
 }
