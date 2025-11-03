@@ -1,39 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Animations;
-
-
-interface IInteractable {
-    public void Interact();
-}
-public class Interaction : MonoBehaviour
-{
-    public Transform InteractionSource;
-    public float InteractionRange;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+using UnityEngine.UI;
+ 
+public class PlayerInteraction : MonoBehaviour {
+ 
+    public Camera mainCamera;
+    public float interactionDistance = 5f;
+ 
+    public GameObject interactionUI;
+    public TMP_Text interactionText;
+ 
+ 
+    private void Update() {
+        InteractionRay();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-         Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
-         if (Physics.Raycast(r, out RaycastHit hit, InteractionRange))
-         {
-             if (hit.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-             {
-                 interactObj.Interact();
-             }
-         }
+ 
+    void InteractionRay() {
+        Ray ray = mainCamera.ViewportPointToRay(Vector3.one/2f);
+        RaycastHit hit;
+ 
+        bool hitSomething = false;
+ 
+        if (Physics.Raycast(ray, out hit, interactionDistance)) {
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+ 
+            if (interactable != null) {
+                hitSomething = true;
+                interactionText.text = interactable.Description;
+ 
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    interactable.Interact();
+                }
+            }
         }
-    }
-
-    public void Interact()
-    {
-        Debug.Log(Random.Range(0, 100));
+ 
+        // interactionUI.SetActive(hitSomething);
     }
 }

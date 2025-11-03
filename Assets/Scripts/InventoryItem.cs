@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -8,13 +9,9 @@ using UnityEngine.InputSystem;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
-    public GameObject Inventory;
-    public MouseMovement mousemovement;
-    
     [Header("Ui")]
     public Image image;
-    public Text countText;
+    public TMP_Text countText;
     
 
     [HideInInspector] public Item item;
