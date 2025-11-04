@@ -3,13 +3,13 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour, IInteractable {
     [SerializeField] Transform pivot;
     [SerializeField] float openAngle = 70f;
-    [SerializeField] float openDuration = 1f;
+    [SerializeField] float openDuration;
     
     public string Description { get; set; }
-    float defaultYRotation;
+    private float defaultYRotation;
     float targetYRotation;
     float currentLerpTime;
-    bool isOpen;
+    public bool isOpen;
 
     void Start() {
         defaultYRotation = pivot.localEulerAngles.y;
@@ -24,7 +24,9 @@ public class DoorScript : MonoBehaviour, IInteractable {
         }
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public void Interact() {
+        Debug.Log("Interact method called");
         ToggleDoor();
     }
     void ToggleDoor() {

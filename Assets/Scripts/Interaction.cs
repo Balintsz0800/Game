@@ -4,19 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
  
-public class PlayerInteraction : MonoBehaviour {
+public class Interaction : MonoBehaviour {
  
     public Camera mainCamera;
-    public float interactionDistance = 5f;
+    public float interactionDistance = 10f;
  
     public GameObject interactionUI;
     public TMP_Text interactionText;
- 
- 
+    public TMP_Text interactionText2;
+    
     private void Update() {
         InteractionRay();
     }
- 
+    
     void InteractionRay() {
         Ray ray = mainCamera.ViewportPointToRay(Vector3.one/2f);
         RaycastHit hit;
@@ -24,18 +24,20 @@ public class PlayerInteraction : MonoBehaviour {
         bool hitSomething = false;
  
         if (Physics.Raycast(ray, out hit, interactionDistance)) {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
  
             if (interactable != null) {
-                hitSomething = true;
+                if (!interactionUI.activeSelf)
+                {
+                    interactionUI.SetActive(true);
+                }
                 interactionText.text = interactable.Description;
  
                 if (Input.GetKeyDown(KeyCode.E)) {
                     interactable.Interact();
                 }
             }
-        }
- 
-        // interactionUI.SetActive(hitSomething);
+        } 
+         //interactionUI.SetActive(hitSomething);
     }
 }
