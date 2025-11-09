@@ -5,10 +5,11 @@ public class DoorScript : MonoBehaviour, IInteractable {
     [SerializeField] float openAngle = 70f;
     [SerializeField] float openDuration;
     
-    public string Description { get; set; }
+    public string Description {get; set;}
     private float defaultYRotation;
     float targetYRotation;
     float currentLerpTime;
+    private float startYRotation;
     public bool isOpen;
 
     void Start() {
@@ -19,18 +20,18 @@ public class DoorScript : MonoBehaviour, IInteractable {
         if (currentLerpTime < openDuration) {
             currentLerpTime += Time.deltaTime;
             float t = Mathf.Clamp01(currentLerpTime / openDuration);
-            float yRotation = Mathf.LerpAngle(pivot.localEulerAngles.y, targetYRotation, t);
+            float yRotation = Mathf.LerpAngle(startYRotation, targetYRotation, t);
             pivot.localEulerAngles = new Vector3(0f, yRotation, 0f);
         }
     }
     
-    // ReSharper disable Unity.PerformanceAnalysis
     public void Interact() {
         Debug.Log("Interact method called");
         ToggleDoor();
     }
-    void ToggleDoor() {
+    private void ToggleDoor() {
         isOpen = !isOpen;
+        startYRotation = pivot.localEulerAngles.y;
         targetYRotation = isOpen ? defaultYRotation + openAngle : defaultYRotation;
         currentLerpTime = 0f;
         Debug.Log("Open");

@@ -11,13 +11,12 @@ public class Interaction : MonoBehaviour {
  
     public GameObject interactionUI;
     public TMP_Text interactionText;
-    public TMP_Text interactionText2;
     
     private void Update() {
         InteractionRay();
     }
     
-    void InteractionRay() {
+    private void InteractionRay() {
         Ray ray = mainCamera.ViewportPointToRay(Vector3.one/2f);
         RaycastHit hit;
  
@@ -27,6 +26,7 @@ public class Interaction : MonoBehaviour {
             IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
  
             if (interactable != null) {
+                hitSomething = true;
                 if (!interactionUI.activeSelf)
                 {
                     interactionUI.SetActive(true);
@@ -38,6 +38,6 @@ public class Interaction : MonoBehaviour {
                 }
             }
         } 
-         //interactionUI.SetActive(hitSomething);
+        interactionUI.SetActive(hitSomething);
     }
 }
