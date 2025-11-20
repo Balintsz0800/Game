@@ -11,6 +11,7 @@ public class MeshTerrainGenerator : MonoBehaviour
     public float noiseScale = 0.05f;
     public float heightMultiplier = 20f;
     public AnimationCurve heightCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    public Material material;
     
     public Gradient terrainColor;
 
@@ -23,6 +24,7 @@ public class MeshTerrainGenerator : MonoBehaviour
     private void Start()
     {
         Generate();
+        GetComponent<MeshRenderer>().material = material;
     }
 
     private void Update()

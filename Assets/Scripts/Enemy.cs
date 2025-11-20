@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public float attackTimer;
     public float attackCooldown;
     public float attackRange;
+    bool isDay;
 
     public EnemyHealth enemyHealth;
     public float damage = 5;
@@ -45,17 +46,22 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        if(attackTimer > 0)
-            attackTimer -= Time.deltaTime;
-        
-        if (!PlayerMovement.Instance) return;
-            
-        agent.destination = PlayerMovement.Instance.transform.position;
-
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (!isDay)
         {
-            if(attackTimer <= 0)
-                Attack();
+            if (attackTimer > 0)
+            {
+                attackTimer -= Time.deltaTime;
+            }
+            
+            if (!PlayerMovement.Instance) return;
+            
+            agent.destination = PlayerMovement.Instance.transform.position;
+            
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) 
+            { 
+                if(attackTimer <= 0) 
+                    Attack(); 
+            }
         }
     }
 }
