@@ -64,4 +64,12 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    public static void EnemyBuff()
+    {
+        if (Timer.timer >= 60f)
+        {
+            damage = (damage * 0.05f);
+        }
+    }
 }

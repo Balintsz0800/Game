@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TimeNight : MonoBehaviour
+public class Timer : MonoBehaviour
 {
     [SerializeField] private float timer; 
     public bool isDay = true;
@@ -18,7 +18,7 @@ public class TimeNight : MonoBehaviour
     {
         if (timer >= 60f)
         {
-            isDay = !isDay;
+            Enemy.EnemyBuff();
         }
         timer += Time.deltaTime;
         int minutes = (int)timer / 60;
