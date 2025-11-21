@@ -10,10 +10,11 @@ public class Enemy : MonoBehaviour
     public float attackTimer;
     public float attackCooldown;
     public float attackRange;
-    bool isDay;
 
     public EnemyHealth enemyHealth;
     public float damage = 5;
+    private float buff = 0.05f;
+    private float buffedDamage;
     private NavMeshAgent agent;
 
     public void TakeDamage(float damage)
@@ -26,16 +27,15 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Start()
     {
+        buffedDamage = damage;
         currentHealth = maxHealth;
         enemyHealth.UpdateHealthText(currentHealth);
 
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = attackRange;
     }
-    
     private void Attack()
     {
         Debug.Log("attack");
@@ -43,33 +43,25 @@ public class Enemy : MonoBehaviour
 
         attackTimer = attackCooldown;
     }
-    
     private void Update()
     {
-        if (!isDay)
+        if (attackTimer > 0)
         {
-            if (attackTimer > 0)
-            {
-                attackTimer -= Time.deltaTime;
-            }
+            attackTimer -= Time.deltaTime;
+        }
             
-            if (!PlayerMovement.Instance) return;
+        if (!PlayerMovement.Instance) return;
             
             agent.destination = PlayerMovement.Instance.transform.position;
             
-            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) 
-            { 
-                if(attackTimer <= 0) 
-                    Attack(); 
-            }
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) 
+        { 
+            if(attackTimer <= 0) 
+                Attack(); 
         }
     }
-
-    public static void EnemyBuff()
+    public void EnemyBuff()
     {
-        if (Timer.timer >= 60f)
-        {
-            damage = (damage * 0.05f);
-        }
+        buffedDamage = (damage *= 1.05f);
     }
 }

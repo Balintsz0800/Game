@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private float timer; 
-    public bool isDay = true;
+    [SerializeField] public float timer; 
     public TMP_Text text;
+    public Enemy enemy;
+    private int lastMinute;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,12 +17,15 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer >= 60f)
-        {
-            Enemy.EnemyBuff();
-        }
         timer += Time.deltaTime;
         int minutes = (int)timer / 60;
+        
+        if (minutes > lastMinute)
+        {
+            lastMinute = minutes;
+            enemy.EnemyBuff();
+        }
+        
         int seconds = (int)timer % 60;
         text.text = minutes + ":" + seconds.ToString("00");
     }
