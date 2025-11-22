@@ -11,10 +11,9 @@ public class Enemy : MonoBehaviour
     public float attackCooldown;
     public float attackRange;
 
-    public EnemyHealth enemyHealth;
-    public float damage = 5;
-    private float buff = 0.05f;
-    private float buffedDamage;
+    public EnemyHealth enemyHealth; 
+    [HideInInspector] public float damage = 10;
+    public float currentDamage => damage * Timer.Instance.damageMultiplier;
     private NavMeshAgent agent;
 
     public void TakeDamage(float damage)
@@ -29,7 +28,6 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
-        buffedDamage = damage;
         currentHealth = maxHealth;
         enemyHealth.UpdateHealthText(currentHealth);
 
@@ -39,7 +37,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         Debug.Log("attack");
-        PlayerStatics.Instance.currentHealth -= damage;
+        PlayerStatics.Instance.currentHealth -= currentDamage;
 
         attackTimer = attackCooldown;
     }
@@ -59,9 +57,5 @@ public class Enemy : MonoBehaviour
             if(attackTimer <= 0) 
                 Attack(); 
         }
-    }
-    public void EnemyBuff()
-    {
-        buffedDamage = (damage *= 1.05f);
     }
 }

@@ -1,17 +1,26 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance;
     [SerializeField] public float timer; 
     public TMP_Text text;
     public Enemy enemy;
     private int lastMinute;
     
+    public float damageMultiplier = 1f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         text.text = timer.ToString();
+    }
+
+    public void Awake()
+    {
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -23,7 +32,7 @@ public class Timer : MonoBehaviour
         if (minutes > lastMinute)
         {
             lastMinute = minutes;
-            enemy.EnemyBuff();
+            damageMultiplier += 1.05f;
         }
         
         int seconds = (int)timer % 60;

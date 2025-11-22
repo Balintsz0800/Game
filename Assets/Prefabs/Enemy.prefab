@@ -315,7 +315,6 @@ MonoBehaviour:
   attackRange: 5
   enemyHealth: {fileID: 7947462735221701533}
   damage: 10
-  timer: {fileID: 0}
 --- !u!114 &7947462735221701533
 MonoBehaviour:
   m_ObjectHideFlags: 0
