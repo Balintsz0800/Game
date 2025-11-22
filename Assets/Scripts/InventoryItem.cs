@@ -11,25 +11,14 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 {
     [Header("Ui")]
     public Image image;
-    public TMP_Text countText;
     
-
     [HideInInspector] public Item item;
-    [HideInInspector] public int count = 1;
     [HideInInspector] public Transform parentAfterDrag;
 
     public void InitaliseItem(Item newItem)
     {
         item = newItem;
         image.sprite = newItem.image;
-        RefreshCount();
-    }
-
-    public void RefreshCount()
-    {
-        countText.text = count.ToString();
-        bool textActive = count > 1;
-        countText.gameObject.SetActive(textActive);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float currentHealth;
-    public float maxHealth = 100;
+    public float maxHealth => maxHealth * Timer.Instance.healthMultiplier;
 
     public float attackTimer;
     public float attackCooldown;

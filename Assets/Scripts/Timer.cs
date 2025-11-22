@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour
     private int lastMinute;
     
     public float damageMultiplier = 1f;
+    public float healthMultiplier = 1f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,6 +34,7 @@ public class Timer : MonoBehaviour
         {
             lastMinute = minutes;
             damageMultiplier += 1.05f;
+            healthMultiplier += 0.2f;
         }
         
         int seconds = (int)timer % 60;
