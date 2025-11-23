@@ -74,6 +74,12 @@ public class Weapon : MonoBehaviour
             }
         } 
     }
+
+    public void AddReload(float amount)
+    {
+        currentReload = Mathf.Clamp(currentReload + amount, 0, maxReload);
+        UpdateUI();
+    }
     
 
     void FireWeapon()
