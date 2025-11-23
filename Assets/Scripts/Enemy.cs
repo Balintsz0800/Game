@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float currentHealth;
-    public float maxHealth => maxHealth * Timer.Instance.healthMultiplier;
+    public float maxHealth;
 
     public float attackTimer;
     public float attackCooldown;
@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
+        maxHealth = maxHealth * Timer.Instance.healthMultiplier;
         currentHealth = maxHealth;
         enemyHealth.UpdateHealthText(currentHealth);
 
