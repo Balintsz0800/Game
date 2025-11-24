@@ -7,6 +7,6 @@ public class EnemyHealth : MonoBehaviour
     
     public void UpdateHealthText(float health)
     {
-        healthText.text = health.ToString();
+        healthText.text = ((int)health).ToString();
     }
 }

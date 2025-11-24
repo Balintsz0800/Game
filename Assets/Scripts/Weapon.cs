@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -10,6 +11,7 @@ public class Weapon : MonoBehaviour
     
     public Camera PlayerCam;
     public Text bullet;
+    public TMP_Text reload;
 
     public bool isShooting, readyToShoot;
     bool allowReset = true;
@@ -73,6 +75,7 @@ public class Weapon : MonoBehaviour
                 UpdateUI();
             }
         } 
+        UpdateUI();
     }
 
     public void AddReload(float amount)
@@ -204,5 +207,7 @@ public class Weapon : MonoBehaviour
     void UpdateUI()
     {
         bullet.text = Mathf.FloorToInt(currentBullet) + "/" + maxBullet;
+        reload.text = Mathf.FloorToInt(currentReload) + "/" + maxReload;
+        
     }
 }

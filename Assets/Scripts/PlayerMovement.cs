@@ -72,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = false;
         }
-        Debug.Log("Grounded: " + isGrounded + " at position: " + groundCheck.position);
         lastPosition = gameObject.transform.position;
 
 

@@ -1,6 +1,9 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Timer : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class Timer : MonoBehaviour
     
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,6 +39,7 @@ public class Timer : MonoBehaviour
             lastMinute = minutes;
             damageMultiplier += 1.05f;
             healthMultiplier += 0.2f;
+            SpawnEnemies.Instance.spawnTime -= 1.05f;
         }
         
         int seconds = (int)timer % 60;

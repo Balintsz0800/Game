@@ -13,10 +13,10 @@ public class Enemy : MonoBehaviour
     public float attackRange;
 
     public EnemyHealth enemyHealth; 
-    [HideInInspector] public float damage = 10;
+    [HideInInspector] public int damage = 10;
     public float currentDamage => damage * Timer.Instance.damageMultiplier;
     public float reloadDropChace = 20f;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     public void TakeDamage(float damage)
     {
