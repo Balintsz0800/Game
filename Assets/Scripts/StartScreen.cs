@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour
 {
+    public GameObject SettingsPanel;
     void Start()
     {
         Time.timeScale = 0f;
@@ -19,5 +20,17 @@ public class StartScreen : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void Settings()
+    {
+        SettingsPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void CloseSettings()
+    {
+        SettingsPanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
     }
 }

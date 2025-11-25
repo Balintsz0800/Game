@@ -52,7 +52,6 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        Debug.Log("attack");
         PlayerStatics.Instance.currentHealth -= currentDamage;
 
         attackTimer = attackCooldown;

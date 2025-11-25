@@ -11,6 +11,12 @@ public class MouseMovement : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        float savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+        mouseSensitivity = savedSensitivity;
+        
+        int resolutionIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
+        Resolution resolution = Screen.resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
 

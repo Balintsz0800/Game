@@ -33,7 +33,6 @@ public class Weapon : MonoBehaviour
     public float maxReload = 2;
     public float currentReload;
     
-    
     public bool isReloading;
 
     void Start()
@@ -203,7 +202,6 @@ public class Weapon : MonoBehaviour
         
     }
     
-
     void UpdateUI()
     {
         bullet.text = Mathf.FloorToInt(currentBullet) + "/" + maxBullet;
