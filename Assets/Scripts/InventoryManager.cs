@@ -27,12 +27,11 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        if (selectedSlot == 0 || MGP7.activeSelf)
+        if (selectedSlot == 0)
         {
             MGP7.SetActive(true);
         }
-
-        if (selectedSlot == 1 || Shotgun.activeSelf)
+        else if (selectedSlot == 1)
         {
             MGP7.SetActive(false);
             Shotgun.SetActive(true);

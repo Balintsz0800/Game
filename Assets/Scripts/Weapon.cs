@@ -13,6 +13,8 @@ public class Weapon : MonoBehaviour
     public Text bullet;
     public TMP_Text reload;
 
+    public Animator anim;
+
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 2f;
@@ -37,6 +39,7 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        anim.GetComponent<Animator>();
         currentReload = maxReload;
         currentBullet = maxBullet;
         UpdateUI();
@@ -86,6 +89,17 @@ public class Weapon : MonoBehaviour
 
     void FireWeapon()
     {
+            anim.SetTrigger("Fire");
+            anim.SetBool("isShooting", true);
+
+            if (currentShootingMode == ShootingMode.Auto)
+            {
+                anim.SetBool(true);
+            }
+            else
+            {
+                anim.SetBool(false);
+            }
         
             readyToShoot = false;
 
