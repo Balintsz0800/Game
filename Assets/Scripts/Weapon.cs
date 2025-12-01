@@ -8,12 +8,11 @@ using Object = UnityEngine.Object;
 
 public class Weapon : MonoBehaviour
 {
-    
     public Camera PlayerCam;
-    public Text bullet;
+    public TMP_Text bullet;
     public TMP_Text reload;
 
-    public Animator anim;
+    private Animator anim;
 
     public bool isShooting, readyToShoot;
     bool allowReset = true;
@@ -21,11 +20,11 @@ public class Weapon : MonoBehaviour
 
     public int bulletsPerBurst = 3;
     public int burstBulletsLeft;
-    
+
     public float spreadIntensity;
-    
+
     public GameObject bulletPrefab;
-    public Transform bulletSpawn ;
+    public Transform bulletSpawn;
     public float bulletVelocity = 30;
     public float bulletPrefabLifetime = 3f;
     public float currentBullet;
@@ -34,41 +33,50 @@ public class Weapon : MonoBehaviour
     public float damage;
     public float maxReload = 2;
     public float currentReload;
-    
+
     public bool isReloading;
 
     void Start()
     {
-        anim.GetComponent<Animator>();
         currentReload = maxReload;
         currentBullet = maxBullet;
         UpdateUI();
     }
-    
+
     // Update is called once per frame
     void Update()
     {
         if (Time.timeScale == 0f) return;
-        
-        PlayerStatics statics = PlayerStatics.Instance;
-        
+
+        bool wasShooting = isShooting;
+
         if (currentShootingMode == ShootingMode.Auto)
-        { 
+        {
             isShooting = Input.GetKey(KeyCode.Mouse0);
         }
-        else if(currentShootingMode == ShootingMode.Burst || currentShootingMode == ShootingMode.Single)
+        else if (currentShootingMode == ShootingMode.Burst || currentShootingMode == ShootingMode.Single)
         {
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && isShooting && currentBullet> 0)
+        if (currentShootingMode == ShootingMode.Auto && !isShooting && !readyToShoot)
+        {
+            anim.SetBool("isShooting", false);
+        }
+
+        if (readyToShoot && isShooting && currentBullet > 0)
         {
             burstBulletsLeft = bulletsPerBurst;
             currentBullet -= 1;
             FireWeapon();
             UpdateUI();
         }
-        
+        if (currentBullet == 0)
+        {
+            readyToShoot = false;
+            anim.SetBool("isShooting", false);
+        }
+
         if (Input.GetKeyDown(KeyCode.R) && !isReloading)
         {
             if (currentBullet < maxBullet)
@@ -76,7 +84,7 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(Reload());
                 UpdateUI();
             }
-        } 
+        }
         UpdateUI();
     }
 
@@ -86,56 +94,49 @@ public class Weapon : MonoBehaviour
         UpdateUI();
     }
     
-
     void FireWeapon()
     {
-            anim.SetTrigger("Fire");
+        if (currentShootingMode == ShootingMode.Auto)
+        {
             anim.SetBool("isShooting", true);
+        }
+        else
+        {
+            anim.SetTrigger("Fire");
+        }
 
-            if (currentShootingMode == ShootingMode.Auto)
-            {
-                anim.SetBool(true);
-            }
-            else
-            {
-                anim.SetBool(false);
-            }
-        
-            readyToShoot = false;
+        readyToShoot = false;
 
-            Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
+        Vector3 shootingDirection = CalculateDirectionAndSpreac().normalized;
 
-            GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position,
-                Quaternion.LookRotation(shootingDirection) * Quaternion.Euler(0, 90, 90));
+        GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawn.position,
+            Quaternion.LookRotation(shootingDirection) * Quaternion.Euler(0, 90, 90));
 
-            bulletInstance.GetComponent<Bullet>().damage = damage;
+        bulletInstance.GetComponent<Bullet>().damage = damage;
 
-            Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-            if (rb != null)
-                rb.linearVelocity = shootingDirection * bulletVelocity;
+        Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.linearVelocity = shootingDirection * bulletVelocity;
 
-            StartCoroutine(DestroyBulletAfterTime(bulletInstance, bulletPrefabLifetime));
+        StartCoroutine(DestroyBulletAfterTime(bulletInstance, bulletPrefabLifetime));
 
-            if (allowReset)
-            {
-                Invoke("ReserShot", shootingDelay);
-                allowReset = false;
-            }
+        if (allowReset)
+        {
+            Invoke("ReserShot", shootingDelay);
+            allowReset = false;
+        }
 
-            if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
-            {
-                burstBulletsLeft--;
-                Invoke("FireWeapon", shootingDelay);
-            }
-
+        if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
+        {
+            burstBulletsLeft--;
+            Invoke("FireWeapon", shootingDelay);
+        }
     }
-
     
     private IEnumerator Reload()
     {
         if (currentReload > 0)
         {
-
             currentReload -= 1;
             isReloading = true;
             readyToShoot = false;
@@ -150,13 +151,6 @@ public class Weapon : MonoBehaviour
             isReloading = false;
             readyToShoot = true;
         }
-        else
-        {
-            if (currentBullet == 0)
-            {
-                readyToShoot = false;
-            }
-        }
     }
 
 
@@ -168,11 +162,10 @@ public class Weapon : MonoBehaviour
 
     public Vector3 CalculateDirectionAndSpreac()
     {
-        
         Ray ray = PlayerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
         Vector3 targetPoint;
-        
+
         if (Physics.Raycast(ray, out hit))
         {
             targetPoint = hit.point;
@@ -181,16 +174,15 @@ public class Weapon : MonoBehaviour
         {
             targetPoint = ray.GetPoint(100);
         }
-        
+
         Vector3 direction = (targetPoint - bulletSpawn.position).normalized;
-        
+
         float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         Vector3 spread = PlayerCam.transform.right * x + PlayerCam.transform.up * y;
-        
+
         Vector3 finalDir = (direction + spread).normalized;
         return finalDir;
-        
     }
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
@@ -200,26 +192,32 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public enum  ShootingMode
+    public enum ShootingMode
     {
         Single,
         Burst,
         Auto
-    }                
-        
-    public  ShootingMode currentShootingMode;
+    }
+
+    public ShootingMode currentShootingMode;
 
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
-        
+        anim = GetComponent<Animator>();
     }
-    
+
     void UpdateUI()
     {
-        bullet.text = Mathf.FloorToInt(currentBullet) + "/" + maxBullet;
-        reload.text = Mathf.FloorToInt(currentReload) + "/" + maxReload;
-        
+        if (bullet != null)
+        {
+            bullet.text = Mathf.FloorToInt(currentBullet) + "/" + maxBullet;
+        }
+
+        if (reload != null)
+        {
+            reload.text = Mathf.FloorToInt(currentReload) + "/" + maxReload;
+        }
     }
 }

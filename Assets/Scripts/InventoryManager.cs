@@ -29,6 +29,7 @@ public class InventoryManager : MonoBehaviour
 
         if (selectedSlot == 0)
         {
+            Shotgun.SetActive(false);
             MGP7.SetActive(true);
         }
         else if (selectedSlot == 1)
